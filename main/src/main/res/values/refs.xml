@@ -24,4 +24,7 @@
     <drawable name="ic_receipt">@drawable/ic_menu_log</drawable>
     <drawable name="ic_sort">@android:drawable/ic_menu_sort_by_size</drawable>
 
+    <!-- Unblockr Drawable resources -->
+    <drawable name="ic_menu_refresh">@android:drawable/ic_menu_more</drawable>
+
 </resources>

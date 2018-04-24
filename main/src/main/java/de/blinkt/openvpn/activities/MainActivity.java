@@ -19,6 +19,8 @@ import android.support.v4n.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import net.unblockr.vpn.fragments.UnblockrVPNProfileList;
+
 import de.blinkt.openvpn.R;
 import de.blinkt.openvpn.fragments.AboutFragment;
 import de.blinkt.openvpn.fragments.FaqFragment;
@@ -54,6 +56,9 @@ public class MainActivity extends BaseActivity {
             disableToolbarElevation();
         }
 
+
+//        Add a list of Unblockr VPNs
+        mPagerAdapter.addTab(R.string.unblockr_vpn_list_title, UnblockrVPNProfileList.class);
 
         mPagerAdapter.addTab(R.string.vpn_list_title, VPNProfileList.class);
         mPagerAdapter.addTab(R.string.graph, GraphFragment.class);
