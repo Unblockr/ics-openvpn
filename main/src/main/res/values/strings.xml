@@ -5,6 +5,7 @@
 <resources>
     <!-- Unblockr String defs -->
     <string name="unblockr_vpn_list_title">Unblockr</string>
+    <string name="unblockr_vpn_refresh">Refresh</string>
     <!-- End of Unblockr String defs -->
     <string name="app">OpenVPN for Android</string>
     <string name="address">Server Address:</string>

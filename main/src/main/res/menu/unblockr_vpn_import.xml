@@ -6,7 +6,7 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/cancel"
+        android:id="@+id/unblockr"
         android:icon="@android:drawable/ic_menu_more"
         android:showAsAction="ifRoom"
         android:title="@android:string/yes"

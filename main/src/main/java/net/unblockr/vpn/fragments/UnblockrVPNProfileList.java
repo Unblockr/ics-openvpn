@@ -3,7 +3,7 @@
  * Distributed under the GNU GPL v2 with additional terms. For full terms see the file doc/LICENSE.txt
  */
 
-package de.blinkt.openvpn.fragments;
+package net.unblockr.vpn.fragments;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -58,12 +58,10 @@ import de.blinkt.openvpn.core.VpnStatus;
 import static de.blinkt.openvpn.core.OpenVPNService.DISCONNECT_VPN;
 
 
-public class VPNProfileList extends ListFragment implements OnClickListener, VpnStatus.StateListener {
+public class UnblockrVPNProfileList extends ListFragment implements OnClickListener, VpnStatus.StateListener {
 
     public final static int RESULT_VPN_DELETED = Activity.RESULT_FIRST_USER;
     public final static int RESULT_VPN_DUPLICATE = Activity.RESULT_FIRST_USER + 1;
-
-    private static final int MENU_ADD_PROFILE = Menu.FIRST;
 
     private static final int START_VPN_CONFIG = 92;
     private static final int SELECT_PROFILE = 43;
@@ -71,7 +69,7 @@ public class VPNProfileList extends ListFragment implements OnClickListener, Vpn
     private static final int FILE_PICKER_RESULT_KITKAT = 392;
 
     private static final int MENU_UNBLOCKR_IMPORT = Menu.FIRST;
-    private static final int MENU_CHANGE_SORTING = Menu.FIRST + 2;
+    private static final int MENU_CHANGE_SORTING = Menu.FIRST + 1;
     private static final String PREF_SORT_BY_LRU = "sortProfilesByLRU";
     private String mLastStatusMessage;
 
@@ -415,15 +413,9 @@ public class VPNProfileList extends ListFragment implements OnClickListener, Vpn
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.add(0, MENU_UNBLOCKR_IMPORT, 0, R.string.menu_import)
-                .setIcon("@android:drawable/ic_menu_more")
-                .setAlphabeticShortcut('a')
-                .setTitleCondensed(getActivity().getString(R.string.add))
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-
-        menu.add(0, MENU_IMPORT_PROFILE, 0, R.string.menu_import)
-                .setIcon(R.drawable.ic_menu_import)
-                .setAlphabeticShortcut('i')
-                .setTitleCondensed(getActivity().getString(R.string.menu_import_short))
+                .setIcon(R.drawable.ic_menu_refresh)
+                .setAlphabeticShortcut('r')
+                .setTitleCondensed(getActivity().getString(R.string.unblockr_vpn_refresh))
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
         menu.add(0, MENU_CHANGE_SORTING, 0, R.string.change_sorting)
@@ -438,11 +430,9 @@ public class VPNProfileList extends ListFragment implements OnClickListener, Vpn
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         final int itemId = item.getItemId();
-        if (itemId == MENU_ADD_PROFILE) {
-            onAddOrDuplicateProfile(null);
+        if (itemId == MENU_UNBLOCKR_IMPORT) {
+            onAddOrDuplicateProfile();
             return true;
-        } else if (itemId == MENU_IMPORT_PROFILE) {
-            return startImportConfigFilePicker();
         } else if (itemId == MENU_CHANGE_SORTING) {
             return changeSorting();
         } else {
@@ -508,7 +498,7 @@ public class VPNProfileList extends ListFragment implements OnClickListener, Vpn
     }
 
 
-    private void onAddOrDuplicateProfile(final VpnProfile mCopyProfile) {
+    private void onAddOrDuplicateProfile() {
         Context context = getActivity();
         if (context != null) {
             final EditText entry = new EditText(context);

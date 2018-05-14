@@ -37,6 +37,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import net.unblockr.vpn.core.AsyncHttpGet;
+import net.unblockr.vpn.core.UnblockrVPNDiscovery;
+
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -439,10 +442,8 @@ public class VPNProfileList extends ListFragment implements OnClickListener, Vpn
     public boolean onOptionsItemSelected(MenuItem item) {
         final int itemId = item.getItemId();
         if (itemId == MENU_ADD_PROFILE) {
-            onAddOrDuplicateProfile(null);
+            onUpdateProfiles();
             return true;
-        } else if (itemId == MENU_IMPORT_PROFILE) {
-            return startImportConfigFilePicker();
         } else if (itemId == MENU_CHANGE_SORTING) {
             return changeSorting();
         } else {
@@ -473,7 +474,7 @@ public class VPNProfileList extends ListFragment implements OnClickListener, Vpn
                 startImportConfigFilePicker();
                 break;
             case R.id.fab_add:
-                onAddOrDuplicateProfile(null);
+                onUpdateProfiles();
                 break;
         }
     }
@@ -508,8 +509,12 @@ public class VPNProfileList extends ListFragment implements OnClickListener, Vpn
     }
 
 
-    private void onAddOrDuplicateProfile(final VpnProfile mCopyProfile) {
+    private void onUpdateProfiles() {
+        UnblockrVPNDiscovery remote_profiles = new UnblockrVPNDiscovery();
+        remote_profiles.discover();
+
         Context context = getActivity();
+
         if (context != null) {
             final EditText entry = new EditText(context);
             entry.setSingleLine();
